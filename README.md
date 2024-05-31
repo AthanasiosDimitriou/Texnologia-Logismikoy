@@ -5,4 +5,11 @@
 1) docker build -t my_streamlit_app . (Είναι μαζί με την τελεία)
 2) docker run -p 8501:8501 my_streamlit_app
 
-Τέλος θα σας βγάλει το παρακάτω μήνυμα και με CTRL+Click στο URL θα σας ανοίξει την εφαρμογή στον browser σας.
+Τέλος θα σας βγάλει το παρακάτω μήνυμα και με CTRL+Click στο URL θα σας ανοίξει την εφαρμογή στον browser σας:
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://0.0.0.0:8501
+
