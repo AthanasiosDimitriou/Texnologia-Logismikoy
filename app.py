@@ -4,33 +4,117 @@ from visualization import display_2d_visualization
 from classification import classification_tab
 from clustering import clustering_tab
 
-st.title("Data Analysis Application")
+# Εισαγωγή στυλ CSS με μαύρο background και στυλ για το sidebar
+st.markdown("""
+    <style>
+    body {
+        background-color: #000000;
+        color: #ffffff;
+    }
+    .main {
+        background-color: #000000;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .title {
+        font-size: 2em;
+        font-weight: bold;
+        color: #4a90e2;
+    }
+    .sidebar .sidebar-content {
+        background-color: #333333;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .sidebar .sidebar-content .sidebar-item {
+        color: #ffffff;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px 0;
+    }
+    .sidebar .sidebar-content .sidebar-item:hover {
+        background-color: #444444;
+        color: #4a90e2;
+    }
+    .sidebar .sidebar-content .sidebar-item input[type=checkbox] {
+        accent-color: #4a90e2;
+    }
+    .footer {
+        font-size: 0.8em;
+        text-align: center;
+        color: #7f8c8d;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
+st.markdown("<div class='main'>", unsafe_allow_html=True)
+st.markdown("<div class='title'>Εφαρμογή Ανάλυσης Δεδομένων</div>", unsafe_allow_html=True)
 
 # Load Data
-uploaded_file = st.file_uploader("Choose a file")
+uploaded_file = st.file_uploader("Επέλεξε ένα αρχείο(Υποστήριξη CSV και EXCEL αρχείων)")
 if uploaded_file is not None:
     df = load_data(uploaded_file)
-    st.write("Data loaded successfully!")
+    st.write("Τα δεδομένα φορτώθηκαν με επιτυχία!")
     st.write(df)
     
     # 2D Visualization Tab
-    if st.sidebar.checkbox('Enable 2D Visualization'):
+    if st.sidebar.checkbox('Ενεργοποίηση 2D Visualization', key='2d_vis', help='Εμφάνιση 2D Visualization των δεδομένων'):
         display_2d_visualization(df)
     
     # Classification Tab
-    if st.sidebar.checkbox('Enable Classification'):
+    if st.sidebar.checkbox('Ενεργοποίηση Ταξινόμησης', key='classification', help='Εκτέλεση ταξινόμησης στα δεδομένα'):
         classification_tab(df)
     
     # Clustering Tab
-    if st.sidebar.checkbox('Enable Clustering'):
+    if st.sidebar.checkbox('Ενεργοποίηση Ομαδοποίησης', key='clustering', help='Εκτέλεση ομαδοποίησης στα δεδομένα'):
         clustering_tab(df)
 
 # Info Tab
-if st.sidebar.checkbox('Enable Info'):
-    st.subheader("Application Information")
+if st.sidebar.checkbox('Πληροφορίες Εφαρμογής', key='info', help='Εμφάνιση Πληροφοριών Εφαρμογής'):
+    st.subheader("Πληροφορίες Εφαρμογής")
     st.write("""
-    This application was developed for the Software Technology course. 
-    It allows users to perform data analysis and machine learning tasks such as 
-    classification and clustering. The application is built using Streamlit and Python, 
-    and supports various features including data loading, visualization, and algorithm comparison.
+    Αυτή η εφαρμογή αναπτύχθηκε για το μάθημα Τεχνολογία Λογισμικού. Επιτρέπει στους χρήστες να εκτελούν εργασίες ανάλυσης δεδομένων και μηχανικής μάθησης, όπως ταξινόμηση και ομαδοποίηση. Η εφαρμογή έχει κατασκευαστεί χρησιμοποιώντας Streamlit και Python και υποστηρίζει διάφορες λειτουργίες, όπως φόρτωση δεδομένων, οπτικοποίηση και σύγκριση αλγορίθμων.
+    Λειτουργίες
+    - Φόρτωση Δεδομένων: Οι χρήστες μπορούν να ανεβάζουν αρχεία CSV ή Excel για να φορτώσουν δεδομένα στην εφαρμογή.
+    - 2D Απεικόνιση: Τεχνικές μείωσης διαστάσεων όπως PCA και t-SNE χρησιμοποιούνται για την απεικόνιση δεδομένων υψηλών διαστάσεων σε δύο διαστάσεις.
+    - Ταξινόμηση: Η εφαρμογή υποστηρίζει εργασίες ταξινόμησης χρησιμοποιώντας τον αλγόριθμο k-NN, επιτρέποντας στους χρήστες να ρυθμίζουν την τιμή του k και να βλέπουν την ακρίβεια των αποτελεσμάτων.
+
+    - Ομαδοποίηση: Οι χρήστες μπορούν να πραγματοποιούν ομαδοποίηση χρησιμοποιώντας τον αλγόριθμο k-means και να βλέπουν την τιμή του silhouette score για την αξιολόγηση της ποιότητας της ομαδοποίησης.
     """)
+    st.write("""
+    Ομάδα Ανάπτυξης
+    Η εφαρμογή αναπτύχθηκε από τον Αθανάσιο Δημητρίου (Π2019122, p19dimi@ionio.gr) και τον Γεώργιο Μαστρογιάννη (Π2020172, p20mast@ionio.gr). Κάθε μέλος συνέβαλε σε διαφορετικές πτυχές του έργου:
+
+    - Αθανάσιος Δημητρίου:
+        - Task: Φόρτωση Δεδομένων
+           - Περιγραφή: Ανέπτυξε τη μονάδα για τη φόρτωση και την προεπεξεργασία δεδομένων από αρχεία CSV και Excel. Ανέλαβε τη μετατροπή κατηγορικών δεδομένων και την εξασφάλιση της συμβατότητας των δεδομένων.
+        - Task: Πίνακας Δεδομένων
+           - Περιγραφή:Γραμμές: Αντιπροσωπεύουν τα S δείγματα που αποτελούν το σύνολο δεδομένων. 
+             Στήλες: Καταγράφουν τα F χαρακτηριστικά που περιγράφουν κάθε δείγμα. 
+             Μεταβλητή Εξόδου: Η στήλη F+1, η οποία προστίθεται στο τέλος, περιέχει την 
+             ετικέτα (label) για κάθε δείγμα.     
+        - Task: 2D Visualization
+           - Περιγραφή: Εφάρμοσε τις τεχνικές 2D απεικόνισης χρησιμοποιώντας PCA και t-SNE. Δημιούργησε διαγράμματα scatter, πυκνότητας και ιστόγραμμα για καλύτερη κατανόηση των δεδομένων.
+        - Task: Εμφάνιση της εφαρμογής στο Streamlit
+           - Περιγραφή: Δημιούργησε το αρχείο app.py που συγκεντρώνει όλα τα υπόλοιπα αρχεία, εμφανίζοντας το sidebar και τις επιλογές που διαθέτει το κάθε αρχείο, εισάγοντας css για το στυλ της εφαρμογής.
+    - Γεώργιος Μαστρογιάννης:
+        - Task: Μονάδα Ταξινόμησης
+           - Περιγραφή: Σχεδίασε και εφάρμοσε τη λειτουργία ταξινόμησης χρησιμοποιώντας τον αλγόριθμο k-NN. Πρόσθεσε επιλογές για τη ρύθμιση παραμέτρων και την εμφάνιση της ακρίβειας.
+        - Task: Μονάδα Ομαδοποίησης
+           - Περιγραφή: Ανέπτυξε τη λειτουργία ομαδοποίησης χρησιμοποιώντας τον αλγόριθμο k-means. Ενσωμάτωσε την αξιολόγηση του silhouette score και την απεικόνιση της ομαδοποίησης.
+        - Task: Info Tab
+           - Περιγραφή: Ανέπτυξε το παρόν κείμενο που διαβάζετε για τις πληροφορίες της εφαρμογής.
+    Πώς να χρησιμοποιήσετε την εφαρμογή
+    1. Ανέβασμα Δεδομένων: Κάντε κλικ στο "Επιλέξτε ένα αρχείο" για να ανεβάσετε το σύνολο δεδομένων σας σε μορφή CSV ή Excel.
+    2. Απεικόνιση: Χρησιμοποιήστε την πλαϊνή γραμμή για να ενεργοποιήσετε την 2D απεικόνιση και να επιλέξετε την επιθυμητή μέθοδο μείωσης διαστάσεων.
+    3. Ταξινόμηση: Ενεργοποιήστε την ταξινόμηση στην πλαϊνή γραμμή και ρυθμίστε την τιμή του k για τον αλγόριθμο k-NN, καθώς και την επιλογή ταξινόμησης με Dicision Tree. Αν θέλετε να συγκρίμετε τους δύο αλγόριθμους, επιλέξτε την επιλογή Σύγκριση με άλλο αλγόριθμο. Τα αποτελέσματα θα εμφανιστούν αμέσως. 
+    4. Ομαδοποίηση: Ενεργοποιήστε την ομαδοποίηση στην πλαϊνή γραμμή, επιλέξτε τον αριθμό των ομάδων και δείτε το silhouette score. Αν θέλετε να συγκρίμετε τους δύο αλγόριθμους, επιλέξτε την επιλογή Σύγκριση με άλλο αλγόριθμο. Τα αποτελέσματα θα εμφανιστούν αμέσως.
+
+    Ελπίζουμε να βρείτε αυτή την εφαρμογή χρήσιμη για τις ανάγκες σας στην ανάλυση δεδομένων και τη μηχανική μάθηση. Εάν έχετε οποιεσδήποτε ερωτήσεις ή σχόλια, μη διστάσετε να επικοινωνήσετε μαζί μας.
+            
+             """)
+st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("<div class='footer'>Developed by Athanasios Dimitriou and Georgios Mastrogiannis</div>", unsafe_allow_html=True)
