@@ -1,17 +1,8 @@
-Δημιουργήστε ένα Container και βάλτε το link του repository:
-Δημιουργία εικονικού περιβάλλοντος:
+Δημιουργήστε ένα Container και βάλτε το link του repository: https://github.com/AthanasiosDimitriou/Texnologia-Logismikoy
 
 Μέσω Docker ανοίξτε το VSCode.
+Στην συυνέχεια ανοίξτε το terminal και εισάγεται τις παρακάτω εντολές μία προς μία:
+docker build -t my_streamlit_app .
+docker run -p 8501:8501 my_streamlit_app
 
-Εγκαταστήστε τις απαραίτητες βιβλιοθήκες που χρειάζονται για την εφαρμογή με την παρακάτω εντολή: 
-pip install streamlit pandas numpy scikit-learn matplotlib seaborn
-
-Ανοίξτε το ενσωματωμένο τερματικό του VSCode (Terminal > New Terminal) και πληκτρολογήστε την εντολή για τη δημιουργία του εικονικού περιβάλλοντος:
-python -m venv env
-
-Στην συνέχεια Ενεργοποήστε το εικονικό περιβάλλον:
-Στο ίδιο τερματικό, ενεργοποιήστε το εικονικό περιβάλλον με την εντολή:
-.\env\Scripts\Activate
-
-Τέλος με την παρακάτω εντολή εκτελέστε την εφαρμογή:
-streamlit run app.py
+Τέλος θα σας βγάλει το παρακάτω μήνυμα και με CTRL+Click στο URL θα σας ανοίξει την εφαρμογή στον browser σας.
