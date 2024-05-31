@@ -11,7 +11,6 @@ def load_data(uploaded_file):
         st.error("Unsupported file format")
         return None
     
-    # Μετατροπή κατηγορικών δεδομένων σε αριθμητικά
     for column in df.select_dtypes(include=['object']).columns:
         le = LabelEncoder()
         df[column] = le.fit_transform(df[column])
